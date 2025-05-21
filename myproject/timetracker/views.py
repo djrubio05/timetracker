@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from django.db.models import Sum
 from django.utils import timezone
 
-from .forms import TimeEntryForm
+from .forms import TimeEntryForm, ProjectForm
 from .models import Project, TimeEntry
 
 
@@ -23,8 +23,23 @@ class IndexView(TemplateView):
 
 
 @method_decorator(login_required, name="dispatch")
-class ProjectsListView(ListView):
+class ProjectsListView(FormMixin, ListView):
     model = Project
+    form_class = ProjectForm
+
+    def get_success_url(self):
+        return reverse("timetracker:projects")
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            time_entry = form.save(commit=False)
+            time_entry.save()
+            messages.success(
+                self.request, "Project added.")
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 
 @method_decorator(login_required, name="dispatch")
