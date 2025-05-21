@@ -12,10 +12,6 @@ from .forms import TimeEntryForm
 from .models import Project, TimeEntry
 
 
-def index(request):
-    return HttpResponse("You are at index")
-
-
 @method_decorator(login_required, name="dispatch")
 class IndexView(TemplateView):
     template_name = "index.html"
