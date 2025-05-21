@@ -77,7 +77,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "timetracker",
         "USER": "postgres",
-        "PASSWORD": "password",
+        "PASSWORD": "2545",
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
