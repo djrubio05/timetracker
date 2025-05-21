@@ -17,10 +17,12 @@ class IndexView(TemplateView):
     template_name = "timetracker/index.html"
 
 
+@method_decorator(login_required, name="dispatch")
 class ProjectsListView(ListView):
     model = Project
 
 
+@method_decorator(login_required, name="dispatch")
 class ProjectDetailView(FormMixin, DetailView):
     model = Project
     form_class = TimeEntryForm
@@ -32,9 +34,10 @@ class ProjectDetailView(FormMixin, DetailView):
         self.object = self.get_object()
         form = self.get_form()
         if form.is_valid():
-            task = form.save(commit=False)
-            task.project = self.object
-            task.save()
+            time_entry = form.save(commit=False)
+            time_entry.project = self.object
+            time_entry.user = request.user
+            time_entry.save()
             messages.success(
                 self.request, "Time Entry added.")
             return self.form_valid(form)
@@ -42,6 +45,7 @@ class ProjectDetailView(FormMixin, DetailView):
             return self.form_invalid(form)
 
 
+@login_required
 def delete_time_entry(request, project_id, pk):
     task = get_object_or_404(TimeEntry, pk=pk)
     project_id = task.project.id
