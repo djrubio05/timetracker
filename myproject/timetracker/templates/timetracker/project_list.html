@@ -4,6 +4,19 @@
     <title>Projects</title>
 </head>
 <body>
-    <h1>Projects Placeholder</h1>
+    <h1>All Projects</h1>
+    <ul>
+        {% for project in object_list  %}
+            <li>
+                <a href="{% url 'timetracker:tasks' project.id %}">{{ project.name }}</a>
+                {% if project.description %}
+                    - {{ project.description }}
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No projects found.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'timetracker:index' %}">Back to Home</a>
 </body>
 </html>
