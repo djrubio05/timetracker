@@ -7,6 +7,7 @@
       <th>Task Description</th>
       <th>Hours Worked</th>
       <th>Date Created</th>
+      <th>User</th>
       <th>Delete</th>
     </tr>
     {% for timeentry in project.timeentry_set.all %}
@@ -14,6 +15,7 @@
         <td>{{ timeentry.description }}</td>
         <td>{{ timeentry.worked_hours }}</td>
         <td>{{ timeentry.created_at }}</td>
+        <td>{{ timeentry.user }}</td>
         <td>
           <form method="post" action="{% url 'timetracker:delete_time_entry' project.id timeentry.id %}" style="display:inline;">
             {% csrf_token %}
