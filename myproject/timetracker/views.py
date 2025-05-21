@@ -9,10 +9,6 @@ def index(request):
     return HttpResponse("You are at index")
 
 
-def tasks(request, project_id):
-    return HttpResponse(f"You are at tasks for project:{project_id}")
-
-
 class ProjectsListView(ListView):
     model = Project
 
