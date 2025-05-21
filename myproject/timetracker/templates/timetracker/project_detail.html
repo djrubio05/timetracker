@@ -23,6 +23,14 @@
         </tr>
       {% endfor %}
     </table>
+    
+    <h2>Add New Time Entry</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="Submit" />
+    </form>
     <a href="{% url 'timetracker:projects' %}">Back to Projects</a>
 </body>
 </html>

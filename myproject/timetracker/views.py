@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormMixin
+
+from .forms import TimeEntryForm
 
 from .models import Project, TimeEntry
 
@@ -13,5 +16,6 @@ class ProjectsListView(ListView):
     model = Project
 
 
-class TimeEntryDetailView(DetailView):
+class TimeEntryDetailView(FormMixin, DetailView):
     model = Project
+    form_class = TimeEntryForm
