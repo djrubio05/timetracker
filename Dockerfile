@@ -12,6 +12,8 @@ COPY . .
 
 WORKDIR /usr/src/app/myproject
 
+RUN python3 manage.py migrate
+
 CMD ["gunicorn", "myproject.wsgi", "--bind", "0.0.0.0:8000"]
 
 

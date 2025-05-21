@@ -88,7 +88,7 @@ DATABASES = {
         "USER": "postgres",
         "PASSWORD": "2545",
         "HOST": env('DATABASE_HOSTNAME'),
-        "PORT": "5432",
+        "PORT": env('DATABASE_PORT'),
     }
 }
 # DATABASES = {

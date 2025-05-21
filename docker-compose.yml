@@ -11,6 +11,7 @@ services:
     command: ["gunicorn", "myproject.wsgi", "--bind", "0.0.0.0:8000"]
     environment:
       - DATABASE_HOSTNAME=postgres
+      - DATABASE_PORT=5432
 
   postgres:
     image: postgres:latest
