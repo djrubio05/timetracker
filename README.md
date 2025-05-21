@@ -37,12 +37,7 @@ App to allow a team to track their time as quickly as possible (few clicks, effi
    python manage.py migrate
    ```
 
-5. **Create a superuser (optional):**
-   ```sh
-   python manage.py createsuperuser
-   ```
-
-6. **Run the development server:**
+5. **Run the development server:**
    ```sh
    python manage.py runserver
    ```
@@ -61,7 +56,6 @@ App to allow a team to track their time as quickly as possible (few clicks, effi
 - Register a new user or log in.
 - Create projects and add time entries.
 - View and manage your time entries and projects.
-- Admins can manage users and all data via `/admin`.
 
 ## Running Tests
 
@@ -69,12 +63,7 @@ App to allow a team to track their time as quickly as possible (few clicks, effi
 python manage.py test
 ```
 
-## License
-
-MIT License
-
----
-
 **Note:**  
 - Default database credentials are set in `docker-compose.yml` and `settings.py`.
 - For production, update your environment variables and security settings.
+- Included .env for testing submition purposes. For actual, it should be ignored.
