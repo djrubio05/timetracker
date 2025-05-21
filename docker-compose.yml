@@ -3,12 +3,21 @@ services:
     build: .
     platform: linux/amd64
     depends_on:
+      postgres:
+        condition: service_healthy
+    links:
       - postgres
     ports:
       - "8000:8000"
     volumes:
       - ./:/usr/src/app:ro
-    command: ["gunicorn", "myproject.wsgi", "--bind", "0.0.0.0:8000"]
+    command: >
+      /bin/sh -c "
+        # Run migrations
+        python manage.py migrate --noinput;
+        # Start the Django app with Gunicorn
+        exec gunicorn -b 0.0.0.0:8000 myproject.wsgi
+      "
     environment:
       - DATABASE_HOSTNAME=postgres
       - DATABASE_PORT=5432
@@ -20,3 +29,8 @@ services:
       POSTGRES_DB: timetracker
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

@@ -1,20 +1,12 @@
 FROM python:3.12.5
 
-WORKDIR /usr/src/app/
+WORKDIR /usr/src/app
 
-COPY requirements.txt ./
+ADD requirements.txt ./
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
-
-# RUN chmod +x /usr/src/app/entrypoint.sh
+ADD . ./
 
 WORKDIR /usr/src/app/myproject
 
-RUN python3 manage.py migrate
-
-CMD ["gunicorn", "myproject.wsgi", "--bind", "0.0.0.0:8000"]
-
-
-# ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
