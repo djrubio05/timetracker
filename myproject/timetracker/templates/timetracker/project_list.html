@@ -8,7 +8,7 @@
     <ul>
         {% for project in object_list  %}
             <li>
-                <a href="{% url 'timetracker:time_entry' project.id %}">{{ project.name }}</a>
+                <a href="{% url 'timetracker:project' project.id %}">{{ project.name }}</a>
                 {% if project.description %}
                     - {{ project.description }}
                 {% endif %}

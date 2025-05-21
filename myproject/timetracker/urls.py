@@ -8,5 +8,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("projects/", views.ProjectsListView.as_view(), name="projects"),
     path("projects/<int:pk>",
-         views.TimeEntryDetailView.as_view(), name="time_entry"),
+         views.ProjectDetailView.as_view(), name="project"),
+    path("projects/<int:project_id>/time_entry/<int:pk>/delete",
+         views.delete_time_entry, name="delete_time_entry"),
 ]
