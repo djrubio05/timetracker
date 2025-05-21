@@ -77,13 +77,18 @@ class UserWeekDetailView(DetailView):
             Add past week time entries and total hours
             worked by user in context data to be displayed
             in template.
+            
+            Re-assign user to request.user as this will be changed
+            to target user due to model naming.
         '''
 
-        user = self.object
+        target_user = self.object
+        context['target_user'] = target_user
+        context['user'] = self.request.user
 
         past_week_time = timezone.now() - datetime.timedelta(weeks=1)
         past_week_timeentries = TimeEntry.objects.filter(
-            user=user.id, created_at__gte=past_week_time)
+            user=target_user.id, created_at__gte=past_week_time)
         context['past_week_time_entries'] = past_week_timeentries
 
         total_hours_worked_by_user = past_week_timeentries.aggregate(

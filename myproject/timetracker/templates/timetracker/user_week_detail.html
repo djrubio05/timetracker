@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
-{% block title %}{{ user.username }} Time Entries{% endblock %}
+{% extends 'timetracker\base.html' %}
+{% block title %}{{ target_user.username }} Time Entries{% endblock %}
 {% block content %}
-  <h1>{{ user.username }} Time Entries in the past week</h1>
+  <h1>{{ target_user.username }} Time Entries in the past week</h1>
   <h2>Total hours worked this past week: {{ total_hours_worked_by_user }}</h2>
   <table>
     <tr>
@@ -13,7 +13,7 @@
     </tr>
     {% for timeentry in past_week_time_entries %}
       <tr>
-        <td><a href="{% url 'timetracker:user_project' user.id timeentry.project.id %}">{{ timeentry.project }}</a></td>
+        <td><a href="{% url 'timetracker:user_project' timeentry.user.id timeentry.project.id %}">{{ timeentry.project }}</a></td>
         <td>{{ timeentry.description }}</td>
         <td>{{ timeentry.worked_hours }}</td>
         <td>{{ timeentry.created_at }}</td>
