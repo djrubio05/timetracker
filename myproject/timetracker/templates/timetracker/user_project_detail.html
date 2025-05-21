@@ -15,7 +15,7 @@
         <td>{{ timeentry.description }}</td>
         <td>{{ timeentry.worked_hours }}</td>
         <td>{{ timeentry.created_at }}</td>
-        <td><a href="{% url 'timetracker:user' timeentry.user.id %}">{{ timeentry.user }}</a></td>
+        <td><a href="{% url 'timetracker:user' current_user.id %}">{{ timeentry.user }}</a></td>
         <td>
           <form method="post" action="{% url 'timetracker:delete_time_entry' project.id timeentry.id %}" style="display:inline;">
             {% csrf_token %}
@@ -30,19 +30,11 @@
     {% endfor %}
   </table>
 
-  <h2>Add New Time Entry</h2>
-
-  <form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" />
-  </form>
-
   {% if messages %}
     {% for message in messages %}
       <li>{{ message }}</li>
     {% endfor %}
   {% endif %}
   
-  <a href="{% url 'timetracker:projects' %}">Back to Projects</a>
+  <a href="{% url 'timetracker:user' current_user.id %}">Back to User</a>
 {% endblock %}

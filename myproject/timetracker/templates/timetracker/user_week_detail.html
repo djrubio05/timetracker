@@ -13,7 +13,7 @@
     </tr>
     {% for timeentry in past_week_time_entries %}
       <tr>
-        <td>{{ timeentry.project }}</td>
+        <td><a href="{% url 'timetracker:user_project' user.id timeentry.project.id %}">{{ timeentry.project }}</a></td>
         <td>{{ timeentry.description }}</td>
         <td>{{ timeentry.worked_hours }}</td>
         <td>{{ timeentry.created_at }}</td>
