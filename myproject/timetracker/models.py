@@ -1,4 +1,7 @@
+from decimal import Decimal
+
 from django.db import models
+from django.core.validators import MinValueValidator
 
 
 class Project(models.Model):
@@ -13,7 +16,8 @@ class TimeEntry(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     description = models.CharField(max_length=255)
     worked_hours = models.DecimalField(
-        "Hours Worked", max_digits=6, decimal_places=2)
+        "Hours Worked", max_digits=6, decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.01'))])
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
