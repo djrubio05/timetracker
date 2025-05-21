@@ -1,0 +1,21 @@
+services:
+  app:
+    build: .
+    platform: linux/amd64
+    depends_on:
+      - postgres
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/usr/src/app:ro
+    command: ["gunicorn", "myproject.wsgi", "--bind", "0.0.0.0:8000"]
+    environment:
+      - DATABASE_HOSTNAME=postgres
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: 2545
+      POSTGRES_DB: timetracker
+    ports:
+      - "5432:5432"

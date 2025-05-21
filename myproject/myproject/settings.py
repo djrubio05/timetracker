@@ -10,11 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import environ
+import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -27,6 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    '0.0.0.0',
 ]
 
 
@@ -82,10 +87,18 @@ DATABASES = {
         "NAME": "timetracker",
         "USER": "postgres",
         "PASSWORD": "2545",
-        "HOST": "127.0.0.1",
+        "HOST": env('DATABASE_HOSTNAME'),
         "PORT": "5432",
     }
 }
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         # Fallback URL if DATABASE_URL is not set
+#         default='postgres://postgres:2545@localhost:5432/timetracker',
+#         conn_max_age=600,  # Optional: connection lifetime
+#         conn_health_checks=True,  # Optional: enable connection health checks
+#     )
+# }
 
 
 # Password validation
