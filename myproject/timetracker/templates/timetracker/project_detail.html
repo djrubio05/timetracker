@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ project.name }} Time Entries</title>
+</head>
+<body>
+    <h1>All {{ project.name }} Time Entries</h1>
+    <table>
+      <tr>
+        <th>Task Description</th>
+        <th>Hours Worked</th>
+        <th>Date Created</th>
+      </tr>
+      {% for timeentry in project.timeentry_set.all %}
+        <tr>
+          <td>{{ timeentry.description }}</td>
+          <td>{{ timeentry.worked_hours }}</td>
+          <td>{{ timeentry.created_at }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="2">No tasks found.</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <a href="{% url 'timetracker:projects' %}">Back to Projects</a>
+</body>
+</html>

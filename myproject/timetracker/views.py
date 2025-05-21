@@ -1,16 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
-from .models import Project
+from .models import Project, TimeEntry
 
 
 def index(request):
     return HttpResponse("You are at index")
-
-
-def projects(request):
-    return HttpResponse("You are at projects")
 
 
 def tasks(request, project_id):
@@ -18,4 +14,8 @@ def tasks(request, project_id):
 
 
 class ProjectsListView(ListView):
+    model = Project
+
+
+class TimeEntryDetailView(DetailView):
     model = Project
