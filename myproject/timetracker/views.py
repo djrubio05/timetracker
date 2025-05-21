@@ -1,9 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView, DeleteView
-from django.views.generic.edit import FormMixin, DeletionMixin
-from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic.edit import FormMixin
+from django.urls import reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from .forms import TimeEntryForm
 
@@ -12,6 +14,11 @@ from .models import Project, TimeEntry
 
 def index(request):
     return HttpResponse("You are at index")
+
+
+@method_decorator(login_required, name="dispatch")
+class IndexView(TemplateView):
+    template_name = "index.html"
 
 
 class ProjectsListView(ListView):

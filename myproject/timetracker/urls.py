@@ -5,7 +5,7 @@ from . import views
 app_name = "timetracker"
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("", views.IndexView.as_view(), name="index"),
     path("projects/", views.ProjectsListView.as_view(), name="projects"),
     path("projects/<int:pk>",
          views.ProjectDetailView.as_view(), name="project"),
