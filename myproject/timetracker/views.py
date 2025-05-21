@@ -56,12 +56,26 @@ class UserProjectDetailView(ProjectDetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        '''
+            Get target user from url args and
+            get all time entry related to target_user
+            and current project. Add query result to
+            context along with target user.
+        '''
         user_id = self.kwargs.get('user_id')
         self.object = self.get_object()
-        current_user = User.objects.get(pk=user_id)
-        context['current_user'] = current_user
-        context['user_time_entries'] = TimeEntry.objects.filter(
-            project=self.object, user=current_user)
+
+        target_user = User.objects.get(pk=user_id)
+        context['target_user'] = target_user
+
+        target_user_time_entries_in_current_project = TimeEntry.objects.filter(
+            project=self.object, user=target_user)
+        context['user_time_entries'] = target_user_time_entries_in_current_project
+
+        context['total_hours_worked_by_user'] = target_user_time_entries_in_current_project.aggregate(
+            total=Sum("worked_hours"))['total'] or Decimal('0.0')
+
         return context
 
 

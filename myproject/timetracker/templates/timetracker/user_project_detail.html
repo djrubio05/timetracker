@@ -1,7 +1,8 @@
 {% extends 'timetracker\base.html' %}
-{% block title %}{{ project.name }} Time Entries for {{ current_user }}{% endblock %}
+{% block title %}{{ project.name }} Time Entries for {{ target_user }}{% endblock %}
 {% block content %}
-  <h1>{{ project.name }} Time Entries for {{ current_user }}</h1>
+  <h1>{{ project.name }} Time Entries for {{ target_user }}</h1>
+  <h2>Total hours worked in this project: {{ total_hours_worked_by_user }}</h2>
   <table>
     <tr>
       <th>Task Description</th>
@@ -15,7 +16,7 @@
         <td>{{ timeentry.description }}</td>
         <td>{{ timeentry.worked_hours }}</td>
         <td>{{ timeentry.created_at }}</td>
-        <td><a href="{% url 'timetracker:user' current_user.id %}">{{ timeentry.user }}</a></td>
+        <td><a href="{% url 'timetracker:user' target_user.id %}">{{ timeentry.user }}</a></td>
         <td>
           <form method="post" action="{% url 'timetracker:delete_time_entry' timeentry.id %}" style="display:inline;">
             {% csrf_token %}
@@ -36,5 +37,5 @@
     {% endfor %}
   {% endif %}
   
-  <a href="{% url 'timetracker:user' current_user.id %}">Back to User</a>
+  <a href="{% url 'timetracker:user' target_user.id %}">Back to User</a>
 {% endblock %}
