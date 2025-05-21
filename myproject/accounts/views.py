@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.views.generic import CreateView
 from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm
@@ -8,6 +9,11 @@ from django.contrib import messages
 class UserCreateView(CreateView):
     form_class = UserCreationForm
     template_name = "registration/create_user.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse("timetracker:index"))
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse("timetracker:index")
