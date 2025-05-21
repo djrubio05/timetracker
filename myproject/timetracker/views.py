@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView
@@ -7,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
+from django.db.models import Sum
 
 from .forms import TimeEntryForm
 from .models import Project, TimeEntry
@@ -49,6 +52,14 @@ class ProjectDetailView(FormMixin, DetailView):
 class UserDetailView(DetailView):
     model = User
     template_name = "timetracker/user_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.object
+        total_hours_worked_by_user = TimeEntry.objects.filter(user=user.id).aggregate(
+            total=Sum("worked_hours"))['total'] or Decimal('0.0')
+        context['total_hours_worked_by_user'] = total_hours_worked_by_user
+        return context
 
 
 @login_required
