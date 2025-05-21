@@ -5,10 +5,10 @@ from django.views.generic.edit import FormMixin
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 
 from .forms import TimeEntryForm
-
 from .models import Project, TimeEntry
 
 
@@ -43,6 +43,12 @@ class ProjectDetailView(FormMixin, DetailView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+
+@method_decorator(login_required, name="dispatch")
+class UserDetailView(DetailView):
+    model = User
+    template_name = "timetracker/user_detail.html"
 
 
 @login_required
