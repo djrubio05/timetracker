@@ -1,4 +1,5 @@
 from decimal import Decimal
+import datetime
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -10,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
 from django.db.models import Sum
+from django.utils import timezone
 
 from .forms import TimeEntryForm
 from .models import Project, TimeEntry
@@ -49,14 +51,18 @@ class ProjectDetailView(FormMixin, DetailView):
 
 
 @method_decorator(login_required, name="dispatch")
-class UserDetailView(DetailView):
+class UserWeekDetailView(DetailView):
     model = User
-    template_name = "timetracker/user_detail.html"
+    template_name = "timetracker/user_week_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.object
-        total_hours_worked_by_user = TimeEntry.objects.filter(user=user.id).aggregate(
+        past_week_time = timezone.now() - datetime.timedelta(weeks=1)
+        past_week_timeentries = TimeEntry.objects.filter(
+            user=user.id, created_at__gte=past_week_time)
+        context['past_week_time'] = past_week_timeentries
+        total_hours_worked_by_user = past_week_timeentries.aggregate(
             total=Sum("worked_hours"))['total'] or Decimal('0.0')
         context['total_hours_worked_by_user'] = total_hours_worked_by_user
         return context

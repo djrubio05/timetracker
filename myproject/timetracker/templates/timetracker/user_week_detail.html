@@ -2,7 +2,7 @@
 {% block title %}{{ user.username }} Time Entries{% endblock %}
 {% block content %}
   <h1>{{ user.username }} Time Entries</h1>
-  <h2>Total Hours Worked: {{ total_hours_worked_by_user }}</h2>
+  <h2>Total Hours Worked this Week: {{ total_hours_worked_by_user }}</h2>
   <table>
     <tr>
       <th>Project</th>
@@ -11,7 +11,7 @@
       <th>Date Created</th>
       <th>Delete</th>
     </tr>
-    {% for timeentry in user.timeentry_set.all %}
+    {% for timeentry in past_week_time %}
       <tr>
         <td>{{ timeentry.project }}</td>
         <td>{{ timeentry.description }}</td>
