@@ -1,8 +1,10 @@
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.views.generic import CreateView
-from django.urls import reverse
-from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import PasswordChangeDoneView as authPasswordChangeDoneView, PasswordChangeView as authPasswordChangeView
 from django.contrib import messages
 
 
@@ -25,3 +27,11 @@ class UserCreateView(CreateView):
         messages.success(
             self.request, "User created and logged in successfully.")
         return response
+
+
+class PasswordChangeDoneView(authPasswordChangeDoneView):
+    template_name = "registration/password_change_done.html"
+
+
+class PasswordChangeView(authPasswordChangeView):
+    success_url = reverse_lazy("accounts:password_change_done")
