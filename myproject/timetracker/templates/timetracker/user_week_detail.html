@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}{{ user.username }} Time Entries{% endblock %}
 {% block content %}
-  <h1>{{ user.username }} Time Entries</h1>
-  <h2>Total Hours Worked this Week: {{ total_hours_worked_by_user }}</h2>
+  <h1>{{ user.username }} Time Entries in the past week</h1>
+  <h2>Total hours worked this past week: {{ total_hours_worked_by_user }}</h2>
   <table>
     <tr>
       <th>Project</th>
