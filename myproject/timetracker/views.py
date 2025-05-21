@@ -1,5 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import ListView
+
+from .models import Project
 
 
 def index(request):
@@ -12,3 +15,7 @@ def projects(request):
 
 def tasks(request, project_id):
     return HttpResponse(f"You are at tasks for project:{project_id}")
+
+
+class ProjectsListView(ListView):
+    model = Project
