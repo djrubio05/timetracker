@@ -93,9 +93,8 @@ class UserWeekDetailView(DetailView):
 
 
 @login_required
-def delete_time_entry(request, project_id, pk):
+def delete_time_entry(request, pk):
     time_entry = get_object_or_404(TimeEntry, pk=pk)
-    project_id = time_entry.project.id
     current_url = request.META.get("HTTP_REFERER")
     if time_entry.user != request.user:
         messages.error(request, "You can only delete your own time entries.")
