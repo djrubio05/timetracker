@@ -22,5 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("timetracker/", include("timetracker.urls")),
-    path("", RedirectView.as_view(url="timetracker/")),
+    path("", RedirectView.as_view(url="timetracker/"), name="home"),
 ]

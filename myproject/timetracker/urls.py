@@ -13,4 +13,6 @@ urlpatterns = [
          views.delete_time_entry, name="delete_time_entry"),
     path("user/<int:pk>/",
          views.UserWeekDetailView.as_view(), name="user"),
+    path("user/<int:user_id>/project/<int:pk>",
+         views.UserProjectDetailView.as_view(), name="user_project"),
 ]

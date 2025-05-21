@@ -51,17 +51,41 @@ class ProjectDetailView(FormMixin, DetailView):
 
 
 @method_decorator(login_required, name="dispatch")
+class UserProjectDetailView(ProjectDetailView):
+    template_name = "timetracker/user_project_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_id = self.kwargs.get('user_id')
+        self.object = self.get_object()
+        current_user = User.objects.get(pk=user_id)
+        context['current_user'] = current_user
+        context['user_time_entries'] = TimeEntry.objects.filter(
+            project=self.object, user=current_user)
+        return context
+
+
+@method_decorator(login_required, name="dispatch")
 class UserWeekDetailView(DetailView):
     model = User
     template_name = "timetracker/user_week_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        '''
+            Add past week time entries and total hours
+            worked by user in context data to be displayed
+            in template.
+        '''
+
         user = self.object
+
         past_week_time = timezone.now() - datetime.timedelta(weeks=1)
         past_week_timeentries = TimeEntry.objects.filter(
             user=user.id, created_at__gte=past_week_time)
-        context['past_week_time'] = past_week_timeentries
+        context['past_week_time_entries'] = past_week_timeentries
+
         total_hours_worked_by_user = past_week_timeentries.aggregate(
             total=Sum("worked_hours"))['total'] or Decimal('0.0')
         context['total_hours_worked_by_user'] = total_hours_worked_by_user
