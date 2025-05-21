@@ -14,7 +14,7 @@ from .models import Project, TimeEntry
 
 @method_decorator(login_required, name="dispatch")
 class IndexView(TemplateView):
-    template_name = "index.html"
+    template_name = "timetracker/index.html"
 
 
 class ProjectsListView(ListView):
