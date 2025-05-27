@@ -60,6 +60,7 @@ App to allow a team to track their time as quickly as possible (few clicks, effi
 ## Running Tests
 
 ```sh
+docker exec -it timetracker-app-1 bash
 python manage.py test
 ```
 
