@@ -46,7 +46,7 @@ App to allow a team to track their time as quickly as possible (few clicks, effi
 
 1. **Build and start the containers:**
    ```sh
-   docker-compose up --build
+   docker-compose up
    ```
 
 2. The app will be available at [http://localhost:8000](http://localhost:8000).
