@@ -15,6 +15,7 @@ services:
       /bin/sh -c "
         # Run migrations
         python manage.py migrate --noinput;
+        python manage.py collectstatic;
         # Start the Django app with Gunicorn
         exec gunicorn -b 0.0.0.0:8000 myproject.wsgi
       "

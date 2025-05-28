@@ -1,0 +1,139 @@
+:root {
+    --color-1: #ffffff;
+    --color-2: #BFD7ED;
+    --color-3: #60A3D9;
+    --color-4: #0074B7;
+    --color-5: #003B73;
+    --font-style: Arial, sans-serif;
+}
+
+body {
+	background-color: var(--color-1); 
+	height: 100%; 
+	width: 100%; 
+	margin: 0 auto; 
+	font-family: var(--font-style);
+}
+
+/*Login*/
+.login-form {
+	width: 500px; 
+	height: 550px; 
+	background-color: var(--color-3); 
+	margin: 0 auto; 
+    margin-top: 10%;
+	border-radius: 20px; 
+	box-shadow: 5px 5px 9px var(--color-2);
+}
+
+.login-text {
+	padding: 25px 0px 0px 0px; 
+	text-align: center;
+}
+
+h1 {
+    color: var(--color-1);
+    text-align: center;
+	padding: 25px 0px 0px 0px; 
+}
+
+.login-form h1 {
+    color: var(--color-1);
+}
+
+.login-form ul li {
+    color: var(--color-1);
+}
+
+label {
+    visibility: hidden;
+}
+
+input {
+	height: 40px; 
+	width: 300px;
+	margin: 5px 100px; 
+	border: 0px; 
+	text-align: center; 
+	border-radius: 20px;
+}
+
+.submit-btn {
+	height: 40px; 
+	width: 300px; 
+	margin: 20px 100px; 
+	border: 0px; 
+	background-color: var(--color-4); 
+	border-radius: 20px;
+    color: var(--color-1);
+	font-weight: bold;
+}
+
+.submit-btn:hover {
+	background-color: var(--color-5);
+	color: var(--color-1);
+}
+
+.sign-up{
+	margin-top: 30px;
+	padding-top: 15px;
+	border-top: 1px solid var(--color-1);
+}
+
+.sign-up .submit-btn:hover {
+	background-color: var(--color-5);
+	color: var(--color-1);
+}
+
+.sign-up .submit-btn {
+	background-color: var(--color-4);
+	color: var(--color-1);
+}
+
+/*Sign Up*/
+.signup-form {
+	width: 800px; 
+	height: 800px; 
+	background-color: var(--color-3); 
+	margin: 0 auto; 
+    margin-top: 4%;
+	border-radius: 20px; 
+	box-shadow: 5px 5px 9px var(--color-2);
+    text-align: center;
+    color: var(--color-1);
+}
+
+.signup-form ul li {
+    padding-top: .5rem;
+    margin-left: 120px;
+    text-align: left;
+}
+
+.signup-form p input {
+    margin-bottom: 1rem;
+}
+
+.signup-form input {
+	height: 40px; 
+	width: 300px;
+	margin: 5px 250px; 
+	border: 0px; 
+	text-align: center; 
+	border-radius: 20px;
+}
+
+.signup-form .submit-btn {
+	height: 40px; 
+	width: 300px; 
+	margin: 20px 250px; 
+	border: 0px; 
+	background-color: var(--color-4); 
+	border-radius: 20px;
+    color: var(--color-1);
+	font-weight: bold;
+}
+
+/*Template Time Tracker*/
+.welcome {
+    color: var(--color-5);
+}
