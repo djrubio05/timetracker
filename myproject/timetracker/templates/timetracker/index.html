@@ -1,7 +1,7 @@
 {% extends 'timetracker/base.html' %}
 {% block title %}Time Tracker{% endblock %}
 {% block content %}
-    <h1>Welcome, {{user.username}}!</h1>
+    <h1 class="welcome">Welcome, {{user.username}}!</h1>
   
     <a href="{% url 'timetracker:projects' %}">Projects</a>
 {% endblock %}
