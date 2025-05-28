@@ -1,6 +1,6 @@
 services:
   app:
-    build: .
+    image: lastletter/timetracker-app:latest
     platform: linux/amd64
     depends_on:
       postgres:
