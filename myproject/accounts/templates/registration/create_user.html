@@ -1,15 +1,24 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Create User</title>
+    <link rel="stylesheet" href="{% static 'assets/style.css' %}"/>
 </head>
 <body>
+    <form method="post" class="signup-form">
     <h1>Create User</h1>
-    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Sign Up</button>
+        <div>
+            <button class="submit-btn" type="submit">Sign Up</button>
+        </div>
+        <div class="sign-up">
+            <button class="submit-btn" type="button" onclick="window.location.href='{% url 'home' %}'">Back To Login Page</button>
+        </div>
     </form>
-    <a href="{% url 'home' %}">Back to Home</a>
+    
+    <script src="{% static 'assets/main.js' %}"></script>
 </body>
 </html>
